@@ -300,7 +300,6 @@ module JekyllImport
           'wordpress_id'  => post[:id],
           'wordpress_url' => post[:guid].to_s,
           'date'          => date.to_s,
-          'date_gmt'      => post[:date_gmt].to_s,
           'categories'    => options[:categories] && categories.any? ? categories : nil,
           'tags'          => options[:tags] && tags.any? ? tags : nil,
           'comments'      => options[:comments] && comments.any? ? comments : nil,
