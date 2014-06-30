@@ -171,7 +171,7 @@ module JekyllImport
 
 
       def self.process_post(post, db, options, page_name_list)
-        return if post[:type] != "post"
+        return if not ["post", "page"].include?(post[:type])
 
         px = options[:table_prefix]
 
