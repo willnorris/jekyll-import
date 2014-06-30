@@ -301,9 +301,9 @@ module JekyllImport
           'wordpress_url' => post[:guid].to_s,
           'date'          => date.to_s,
           'date_gmt'      => post[:date_gmt].to_s,
-          'categories'    => options[:categories] ? categories : nil,
-          'tags'          => options[:tags] ? tags : nil,
-          'comments'      => options[:comments] ? comments : nil,
+          'categories'    => options[:categories] && categories.any? ? categories : nil,
+          'tags'          => options[:tags] && tags.any? ? tags : nil,
+          'comments'      => options[:comments] && comments.any? ? comments : nil,
         }.delete_if { |k,v| v.nil? || v == '' }.to_yaml
 
         if post[:type] == 'page'
