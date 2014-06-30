@@ -292,13 +292,11 @@ module JekyllImport
         # convert to YAML for the header.
         data = {
           'layout'        => post[:type].to_s,
-          'status'        => post[:status].to_s,
           'published'     => post[:status].to_s == 'draft' || post[:status].to_s == 'publish' ? nil : false,
           'title'         => title.to_s,
           'excerpt'       => excerpt,
           'more_anchor'   => more_anchor,
           'wordpress_id'  => post[:id],
-          'wordpress_url' => post[:guid].to_s,
           'date'          => date.to_s,
           'categories'    => options[:categories] && categories.any? ? categories : nil,
           'tags'          => options[:tags] && tags.any? ? tags : nil,
