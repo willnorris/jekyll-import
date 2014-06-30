@@ -293,7 +293,7 @@ module JekyllImport
         data = {
           'layout'        => post[:type].to_s,
           'status'        => post[:status].to_s,
-          'published'     => post[:status].to_s == 'draft' ? nil : (post[:status].to_s == 'publish'),
+          'published'     => post[:status].to_s == 'draft' || post[:status].to_s == 'publish' ? nil : false,
           'title'         => title.to_s,
           'excerpt'       => excerpt,
           'more_anchor'   => more_anchor,
