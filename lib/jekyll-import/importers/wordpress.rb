@@ -170,6 +170,8 @@ module JekyllImport
 
 
       def self.process_post(post, db, options, page_name_list)
+        return if post[:type] != "post"
+
         px = options[:table_prefix]
 
         title = post[:title]
