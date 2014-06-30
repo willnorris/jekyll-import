@@ -302,8 +302,7 @@ module JekyllImport
               'author'       => comauthor,
               'author_email' => comment[:author_email].to_s,
               'author_url'   => comment[:author_url].to_s,
-              'date'         => comment[:date].to_s,
-              'date_gmt'     => comment[:date_gmt].to_s,
+              'date'         => comment[:date].iso8601,
               'content'      => comcontent,
             }
           end
@@ -320,7 +319,7 @@ module JekyllImport
           'excerpt'       => excerpt,
           'more_anchor'   => more_anchor,
           'wordpress_id'  => post[:id],
-          'date'          => date.to_s,
+          'date'          => date.iso8601,
           'categories'    => options[:categories] && categories.any? ? categories : nil,
           'tags'          => options[:tags] && tags.any? ? tags : nil,
           'comments'      => options[:comments] && comments.any? ? comments : nil,
