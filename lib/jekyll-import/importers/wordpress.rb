@@ -247,6 +247,24 @@ module JekyllImport
           end
         end
 
+        post_meta = {}
+
+        mquery =
+          "SELECT meta_key, meta_value
+           FROM #{px}postmeta
+           WHERE
+             post_id = '#{post[:id]}'"
+
+        db[mquery].each do |meta|
+          key = meta[:meta_key].to_s
+          value = meta[:meta_value].to_s
+          if post_meta.has_key?(key)
+            post_meta[key] = Array(post_meta[key]).push(value)
+          else
+            post_meta[key] = value
+          end
+        end
+
         comments = []
 
         if options[:comments] and post[:comment_count].to_i > 0
@@ -306,6 +324,7 @@ module JekyllImport
           'categories'    => options[:categories] && categories.any? ? categories : nil,
           'tags'          => options[:tags] && tags.any? ? tags : nil,
           'comments'      => options[:comments] && comments.any? ? comments : nil,
+          'syndication'   => post_meta.has_key?('syndication') ? Array(post_meta['syndication']) : nil,
         }.delete_if { |k,v| v.nil? || v == '' }.to_yaml
 
         if post[:type] == 'page'
