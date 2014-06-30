@@ -185,7 +185,7 @@ module JekyllImport
         end
 
         date = post[:date] || Time.now
-        name = "%02d-%02d-%02d-%s.markdown" % [date.year, date.month,
+        name = "%02d-%02d-%02d-%s.md" % [date.year, date.month,
                                                date.day, slug]
         content = post[:content].to_s
         if options[:clean_entities]
@@ -307,6 +307,7 @@ module JekyllImport
 
         if post[:type] == 'page'
           filename = page_path(post[:id], page_name_list) + 'index.markdown'
+          filename.sub!(/\/index.markdown$/, '.md')
           FileUtils.mkdir_p(File.dirname(filename))
         elsif post[:status] == 'draft'
           filename = "_drafts/#{slug}.md"
