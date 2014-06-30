@@ -143,6 +143,7 @@ module JekyllImport
              posts.post_date     AS `date`,
              posts.post_date_gmt AS `date_gmt`,
              posts.post_content  AS `content`,
+             posts.post_content_filtered  AS `content_filtered`,
              posts.post_excerpt  AS `excerpt`,
              posts.comment_count AS `comment_count`,
              users.display_name  AS `author`,
@@ -187,7 +188,9 @@ module JekyllImport
         date = post[:date] || Time.now
         name = "%02d-%02d-%02d-%s.md" % [date.year, date.month,
                                                date.day, slug]
-        content = post[:content].to_s
+        content = post[:content_filtered].to_s.gsub(/\r\n?/, "\n")
+        # TODO: fallback to :content if :content_filtered is empty?
+        # content = post[:content].to_s
         if options[:clean_entities]
           content = clean_entities(content)
         end
@@ -319,7 +322,7 @@ module JekyllImport
         File.open(filename, "w") do |f|
           f.puts data
           f.puts "---"
-          f.puts Util.wpautop(content)
+          f.puts content
         end
       end
 
