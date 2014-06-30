@@ -324,6 +324,7 @@ module JekyllImport
           'tags'          => options[:tags] && tags.any? ? tags : nil,
           'comments'      => options[:comments] && comments.any? ? comments : nil,
           'syndication'   => post_meta.has_key?('syndication') ? Array(post_meta['syndication']) : nil,
+          'go_import'     => post_meta.has_key?('go_import') ? post_meta['go_import'] : nil,
         }.delete_if { |k,v| v.nil? || v == '' }.to_yaml
 
         if post[:type] == 'page'
