@@ -214,6 +214,7 @@ module JekyllImport
 
         categories = []
         tags = []
+        post_format = nil
 
         if options[:categories] or options[:tags]
 
@@ -243,6 +244,8 @@ module JekyllImport
               else
                 tags << term[:name]
               end
+            elsif options[:tags] and term[:type] == "post_format"
+              post_format = term[:name].sub(/^post-format-/, '')
             end
           end
         end
@@ -313,7 +316,7 @@ module JekyllImport
         # Get the relevant fields as a hash, delete empty fields and
         # convert to YAML for the header.
         data = {
-          'layout'        => post[:type].to_s,
+          'layout'        => post_format ? post_format : post[:type].to_s,
           'published'     => post[:status].to_s == 'draft' || post[:status].to_s == 'publish' ? nil : false,
           'title'         => title.to_s,
           'excerpt'       => excerpt,
